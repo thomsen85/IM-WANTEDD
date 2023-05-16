@@ -1,3 +1,6 @@
+mod simulation;
+mod visualization;
+
 fn main() {
-    println!("Hello, world!");
+    visualization::main();
 }
