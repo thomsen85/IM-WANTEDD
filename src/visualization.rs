@@ -6,6 +6,7 @@ use bevy_egui::{egui, EguiContexts, EguiPlugin};
 const DRONE_ROWS: usize = 10;
 const DRONE_COLUMNS: usize = 10;
 const DRONE_SPACING: f32 = 4.0;
+const CONNECTION_RADIUS: f32 = 0.04;
 
 pub fn main() {
     App::new()
@@ -48,15 +49,17 @@ fn update_drones(mut drones: Query<&mut Transform, With<Drone>>) {
 
 fn update_connections(
     drones: Query<(&Drone, &Transform), Without<Connection>>,
-    mut connections: Query<(&Connection, &mut Transform, Entity), Without<Drone>>,
+    mut connections: Query<(&Connection, &mut Transform, Entity, &Handle<Mesh>), Without<Drone>>,
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
+    // TODO: remove unused connections
+    // TODO: update length of connections
     let query_list = drones.iter().collect::<Vec<_>>();
 
     for (drone, transform) in drones.iter() {
-        let nearby = get_nearby_drones((drone, transform), &query_list, 5.0);
+        let nearby = get_nearby_drones((drone, transform), &query_list, 7.0);
         println!("{}", nearby.len());
 
         for (nearby_drone, nearby_transform) in nearby {
@@ -65,40 +68,43 @@ fn update_connections(
             }
             let connection = connections
                 .iter_mut()
-                .filter(|(connection, _, _)| {
+                .filter(|(connection, _, _, _)| {
                     connection.from == drone.id && connection.to == nearby_drone.id
                 })
                 .next();
 
             let diff_vec = nearby_transform.translation - transform.translation;
+            let mid_vec = nearby_transform
+                .translation
+                .lerp(transform.translation, 0.5);
+            let length = diff_vec.length() * 0.8;
 
             if let Some(mut conn) = connection {
-                conn.1.translation = Vec3::new(
-                    transform.translation.x,
-                    transform.translation.y,
-                    transform.translation.z,
+                conn.1.translation = mid_vec;
+                conn.1.rotation = Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y);
+                meshes.set(
+                    conn.3,
+                    shape::Cylinder {
+                        radius: CONNECTION_RADIUS,
+                        height: length,
+                        ..Default::default()
+                    }
+                    .into(),
                 );
-                conn.1.rotation = Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y)
             } else {
                 commands.spawn((
                     PbrBundle {
                         mesh: meshes.add(
                             shape::Cylinder {
-                                radius: 0.1,
-                                height: transform
-                                    .translation
-                                    .distance(nearby_transform.translation),
+                                radius: CONNECTION_RADIUS,
+                                height: length,
                                 ..Default::default()
                             }
                             .into(),
                         ),
                         material: materials.add(Color::rgb(0.3, 0.5, 0.3).into()),
-                        transform: Transform::from_xyz(
-                            transform.translation.x,
-                            transform.translation.y,
-                            transform.translation.z,
-                        )
-                        .with_rotation(Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y)),
+                        transform: Transform::from_translation(mid_vec)
+                            .with_rotation(Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y)),
                         ..default()
                     },
                     Connection {
@@ -134,7 +140,6 @@ fn ui_example_system(mut contexts: EguiContexts, fps: Res<Fps>) {
         ui.label(format!("FPS: {}", fps.amount));
     });
 }
-/// set up a simple 3D scene
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     // // plane
     // commands.spawn(PbrBundle {
