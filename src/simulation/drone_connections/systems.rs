@@ -1,24 +1,13 @@
+use crate::simulation::drone_connections::components::Connection;
+use crate::simulation::drone_connections::constants::CONNECTION_PIPE_LENGTH_PADDING;
+use crate::simulation::drone_connections::constants::CONNECTION_PIPE_RADIUS;
+use crate::simulation::drones::components::Drone;
+use crate::simulation::drones::constants::DRONE_CONNECTION_DISTANCE;
 use bevy::prelude::*;
 
-use crate::simulation::drones::{Drone, DRONE_CONNECTION_DISTANCE};
+use super::utils::get_nearby_drones;
 
-pub struct DroneConnectionsPlugin;
-impl Plugin for DroneConnectionsPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_system(update_drone_connections);
-    }
-}
-
-const CONNECTION_PIPE_RADIUS: f32 = 0.1;
-const CONNECTION_PIPE_LENGTH_PADDING: f32 = 1.0;
-
-#[derive(Component)]
-pub struct Connection {
-    pub from: usize,
-    pub to: usize,
-}
-
-fn update_drone_connections(
+pub fn update_drone_connections(
     drones: Query<(&Drone, &Transform), (Without<Connection>, With<Drone>)>,
     mut connections: Query<
         (&Connection, &mut Transform, Entity, &Handle<Mesh>),
@@ -90,18 +79,4 @@ fn update_drone_connections(
             }
         }
     }
-}
-
-fn get_nearby_drones<'a>(
-    current_drone: (&Drone, &Transform),
-    drones: &Vec<(&'a Drone, &'a Transform)>,
-    distance: f32,
-) -> Vec<(&'a Drone, &'a Transform)> {
-    let mut nearby_drones = Vec::new();
-    for (drone, transform) in drones.iter() {
-        if transform.translation.distance(current_drone.1.translation) < distance {
-            nearby_drones.push((*drone, *transform));
-        }
-    }
-    nearby_drones
 }

@@ -1,7 +1,6 @@
 use bevy::prelude::*;
 
-use crate::simulation::camera::resources::CameraState;
-use crate::simulation::drones::Drone;
+use crate::simulation::{camera::resources::CameraState, drones::components::Drone};
 
 pub fn setup(mut commands: Commands) {
     commands.spawn(Camera3dBundle {

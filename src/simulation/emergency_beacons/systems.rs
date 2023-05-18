@@ -1,18 +1,8 @@
 use bevy::prelude::*;
 
-pub struct EmergencyBeaconsPlugin;
-impl Plugin for EmergencyBeaconsPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_startup_system(setup_emergency_beacons);
-    }
-}
+use super::components::EmergencyBeacon;
 
-#[derive(Component)]
-pub struct EmergencyBeacon {
-    pub id: usize,
-}
-
-fn setup_emergency_beacons(
+pub fn setup(
     mut commands: Commands,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut meshes: ResMut<Assets<Mesh>>,
