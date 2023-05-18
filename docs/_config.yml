@@ -22,7 +22,9 @@ title: IM-WANTEDD
 description: >- # this means to ignore newlines until "baseurl:"
   This site is part of the course IDATT2104 - Networkprogramming at NTNU.
 github_username:  thomsen85
-domain: im-wantedd.github.io 
+domain: im-wantedd.github.io
+url: https://im-wantedd.github.io
+baseurl: "" # the subpath of your site, e.g. /blog
 
 # Build settings
 theme: minima
