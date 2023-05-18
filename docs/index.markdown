@@ -6,15 +6,15 @@ layout: post
 title: IM-WANTEDD
 ---
 
-- **Interoperable:** 
-- **Mesh:** 
-- **Wireless:** 
-- **Ad-hoc:** 
-- **Network for:** 
-- **Triangulating:** 
-- **Emergencies with:** 
-- **Decentralized:** 
-- **Drones:** 
+- **Interoperable:** An interconnected network of drones
+- **Mesh:** Peer to peer communication 
+- **Wireless:** No cables are available in the sky
+- **Ad-hoc:** Peer to peer communication while reacting to frequent changes in the network
+- **Network for:** A connection of nodes for communication
+- **Triangulating:** Finding the correct position from several nodes
+- **Emergencies with:** Helps in urgent situations with no room for failure
+- **Decentralized:** The network can communicate and store information without a central hub
+- **Drones:** Drones can access areas inacessible to people
 
 ## Introduction
 
