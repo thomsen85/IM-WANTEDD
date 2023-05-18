@@ -24,9 +24,12 @@ description: >- # this means to ignore newlines until "baseurl:"
 github_username:  thomsen85
 
 # Build settings
-theme: minima
+theme: just-the-docs
 plugins:
   - jekyll-feed
+  - jekyll-default-layout
+
+color_scheme: dark
 
 header_pages:
   - protocol.markdown

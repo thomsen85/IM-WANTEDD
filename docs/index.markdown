@@ -1,6 +1,7 @@
 ---
-layout: home
+layout: default
 title: IM-WANTEDD
+nav_exclude: true
 ---
 
 - **Interoperable:** An interconnected network of drones
