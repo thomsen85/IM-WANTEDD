@@ -35,9 +35,6 @@ cd wireless-mesh-network
 cargo run
 ```
 
-
-For detailed instructions and additional options, please refer to the [Installation Guide](docs/INSTALLATION.md).
-
 ## Documentation and report
 
 Visit the [repository report](https://thomsen85.github.io/wireless-mesh-network/) for a guide, documentation and an in depth look at the project.
