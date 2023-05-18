@@ -10,5 +10,3 @@ permalink: /simulation/
 ### How it works
 
 
-
-### 
