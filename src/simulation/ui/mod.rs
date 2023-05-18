@@ -1,9 +1,8 @@
 mod fps_counter;
-use crate::simulation::camera::CameraState;
-use crate::simulation::ui::fps_counter::{Fps, FpsCounterPlugin};
 
-use super::drones::Drone;
-use super::GroundState;
+use self::fps_counter::{FpsCounterPlugin, resources::Fps};
+
+use super::{drones::Drone, camera::resources::CameraState, scenery::resources::GroundState};
 use bevy::prelude::*;
 use bevy_egui::{egui, EguiContexts, EguiPlugin};
 

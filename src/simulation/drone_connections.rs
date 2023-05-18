@@ -1,5 +1,3 @@
-use std::cmp::min;
-
 use bevy::prelude::*;
 
 use crate::simulation::drones::{Drone, DRONE_CONNECTION_DISTANCE};
