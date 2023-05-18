@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
-const DRONE_ROWS: usize = 10;
-const DRONE_COLUMNS: usize = 10;
+const DRONE_ROWS: usize = 3;
+const DRONE_COLUMNS: usize = 3;
 const DRONE_SPACING: f32 = 30.0;
 const DRONE_SIZE_MUTIPLIER: f32 = 0.1;
 const DRONE_HEIGHT: f32 = 10.0;

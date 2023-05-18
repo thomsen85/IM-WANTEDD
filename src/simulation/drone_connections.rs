@@ -1,4 +1,4 @@
-use std::io::Write;
+use std::cmp::min;
 
 use bevy::prelude::*;
 
@@ -11,7 +11,8 @@ impl Plugin for DroneConnectionsPlugin {
     }
 }
 
-const CONNECTION_PIPE_RADIUS: f32 = 0.04;
+const CONNECTION_PIPE_RADIUS: f32 = 0.1;
+const CONNECTION_PIPE_LENGTH_PADDING: f32 = 1.0;
 
 #[derive(Component)]
 pub struct Connection {
@@ -51,7 +52,8 @@ fn update_drone_connections(
             let mid_vec = nearby_transform
                 .translation
                 .lerp(transform.translation, 0.5);
-            let length = diff_vec.length() * 0.8;
+            let length = diff_vec.length();
+            let length = f32::min(length, length - CONNECTION_PIPE_LENGTH_PADDING);
 
             if let Some(mut conn) = connection {
                 conn.1.translation = mid_vec;
@@ -77,7 +79,7 @@ fn update_drone_connections(
                             }
                             .into(),
                         ),
-                        material: materials.add(Color::rgb(0.3, 0.5, 0.3).into()),
+                        material: materials.add(Color::rgba(0.3, 0.5, 0.3, 0.2).into()),
                         transform: Transform::from_translation(mid_vec)
                             .with_rotation(Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y)),
                         ..default()
