@@ -32,8 +32,37 @@ People are lost in avalanches and landslides every year. The areas that are left
 
 IM-WANTEDD provides the simulation necessary to understand how these emergencies can be solved in the best possible way; with no lives lost. It is created through the subject IDATT2104 - Network Programming at the Norwegian University of Science and Technology (NTNU). Drones are put over a landscape and communicate together in a mobile wireless mesh network.
 
+## Definitions and Acronyms
+- MAC
+- IP
+- DSRC
+- RTS/CTS
+- MANET
+- VANET
+- FANET
+- IM-WANTEDD
 
 ## Theory
+
+### Manet, Vanet and Fanet
+
+### RTS/CTS
+
+### Half Duplex
+
+### Mesh networks
+#### Flooding
+
+### DSRC
+
+### Ad-hoc networks
+
+### Triangulation
+
+### Decentralization
+
+
+### Avalanche Beacons
 
 
 ## Method
@@ -45,4 +74,4 @@ IM-WANTEDD provides the simulation necessary to understand how these emergencies
 ## Conclusion and further work
 
 
-## Appendix
+## Bibliography
