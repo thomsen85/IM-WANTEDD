@@ -22,6 +22,7 @@ title: IM-WANTEDD
 description: >- # this means to ignore newlines until "baseurl:"
   This site is part of the course IDATT2104 - Networkprogramming at NTNU.
 github_username:  thomsen85
+baseurl: "/wireless-mesh-network"
 
 # Build settings
 theme: minima
