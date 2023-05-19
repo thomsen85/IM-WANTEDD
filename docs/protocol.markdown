@@ -40,12 +40,13 @@ Each drone has a table of beacon pings. Each row contains the IP address of the 
 Drones have three nodes it can to communicate with. Nearby drones, the central hub, and beacons. They function on their own or while communicating with all three at the same time.
 
 #### **Nearby Drones**
-The network of drones closely resemble a VANET. They work synchronously in a fast pased environment. Following a similar path, they can stay in close proximity and be connected to each other. As explained in figure 1, drones use RTS/CTS before sending a packet. This ensures that communicating over half-duplex does not result in lost packets.
+The network of drones closely resemble a VANET. They work synchronously in a fast pased environment. Following a similar path, they can stay in close proximity and be connected to each other. As explained in figure 1, drones use RTS/CTS before sending a packet. This ensures that communicating over half-duplex does not result in lost packets by collisions. There is overhead using RTS/CTS instead of TDMA, but at the same time secure in all situations where TDMA would require synchronization between nodes to avoid collisions.
 
-As the network is decentralized, drones do not need to send packets directed towards a specific drone. They can instead use flooding to broadcast the message through the mesh. All connected nodes receives the message.
+As the network is decentralized, drones do not need to send packets directed towards a specific drone. They can instead use flooding to broadcast the message through the mesh. All connected nodes receive the message. If a drone receives a ping result from a another drone, it first checks if it already has it in its table. If it is, it does not send the message further. Otherwise, the message is sent to all conncted drones except for the drones that sent it. A hop count is standard to use with the flooding techique. As the mesh can constantly change and drones need to broadcast the message to all nodes, no hop count is necessary.
 
-Nearby drones communicate using DSRC technology. This solution provides a reliable connection between drones on a short to medium range with high data rates. To avoid disturbance, noise and information collision, authentication secures that validated messages are between trusted nodes. 
+Nearby drones communicate using DSRC technology. This solution provides a reliable connection between drones on a short to medium range with high data rates. To avoid disturbance, noise and information collision, authentication secures that validated messages are between trusted nodes.
 
+Connecting drones use TCP for reliable connections. As it is important for the mesh to have the correct information, packet loss tracking in TCP is used.
 
 #### **Central Hub**
 
@@ -61,13 +62,21 @@ Avalanche beacons' low frequency provide a long range and reliable connections t
 As drones only search and does not rescue, the drones do not need to triangulate the position of a beacon. This task can be given to the central hub when it retrieves the table of ping results. With a table of combined ping result, the central hub can calculate the position of beacons.
 
 
-### Ad Hoc Connections
+### Ad-Hoc Connections
 
+A requirement for ad-hoc mesh networks is to be able to manage new connections. As the network is decentralized, making sure all drones have the available and most updated information can be tricky. 
 
+Drones always look for the central hub or other drones it can connect to. When a new drone is in range, it is connected by a TCP three-way handshake.
+
+To make the list of ping results between drones synchronized, on of the drones in the connection sends the entire ping result table. This list of ping results are cross checked with its own list. Ping results that it already has are ignored, new rows are sent through the network except for the source drone and rows that it has which were not sent by the source drone are sent to the source. This ensures synchronization between the meshes that the drones were connected to.
 
 ### Self Healing
+All drones always try to connect to drones in the area if they are in range. Lost connections to drones that are lost are in that way always trynig to reconnect. The emergency situation that the drones are in, require them to handle lost connections and still be able to provide the best information to the central hub. Therefore keeping a mesh that is as connected as possible is important for synchronizing new ping results.
 
+Another improvement of 
 
+*Full mesh is a lot of overhead. So is the partial mesh that we have now*
+*Its important to keep the connections for as long as possible as sending the entire table is bloat*
+**
 
-### Considering Errors
 

@@ -41,7 +41,7 @@ IM-WANTEDD provides the simulation necessary to understand how these emergencies
 - VANET
 - FANET
 - IM-WANTEDD
-
+- TDMA
 ## Theory
 
 ### Manet, Vanet and Fanet
