@@ -1,5 +1,4 @@
 ---
-layout: default
 title: IM-WANTEDD
 nav_exclude: true
 ---
@@ -15,6 +14,17 @@ nav_exclude: true
 - **Emergencies with:** Helps in urgent situations with no room for failure
 - **Decentralized:** The network can communicate and store information without a central hub
 - **Drones:** Drones can access areas inacessible to people
+
+
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
 
 ## Introduction
 

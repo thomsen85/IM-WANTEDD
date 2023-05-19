@@ -1,8 +1,19 @@
 ---
-layout: page
 title: Protocol
 permalink: /protocol/
+nav_order: 1
 ---
+
+# Protocol
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
 
 ### Flow of a Single Drone
 
@@ -23,15 +34,10 @@ Figure 2: Flow chart for sending a message through a half-duplex connection.
 
 
 ### Data Between Nodes
-
+Drones have three nodes it can to communicate with. Nearby drones, the central hub, and beacons. They function on their own or while communicating with all three at the same time. 
 
 
 ### Triangulation
-
-
-
-### Considering Errors
-
 
 
 ### Ad Hoc Connections
@@ -39,6 +45,10 @@ Figure 2: Flow chart for sending a message through a half-duplex connection.
 
 
 ### Self Healing
+
+
+
+### Considering Errors
 
 
 
