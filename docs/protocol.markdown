@@ -15,6 +15,9 @@ nav_order: 1
 </details>
 
 
+### Drone Storage
+Each drone has a table of beacon pings. Each row contains the IP address of the drone, beacon identifier, the coordinates of the drone and calculated distance about a ping result. Each time a drone successfully pings a beacon, a new row is added.
+
 ### Flow of a Single Drone
 
 All drones have a pre-determined protocol to follow during the simulation. Figure 1 displays how a drone reacts to different events. While these events are happening, each drone will still follow a set path, try to connect to a beacon and try to establish a connection with a drone or a central hub.
@@ -31,9 +34,6 @@ A system sending packets through wireless connections could easily loose informa
 <img src="/IM-WANTEDD/images/rts_cts_flow_chart.png" alt="rts cts flow chart"/>
 
 Figure 2: Flow chart for sending a message through a half-duplex connection.
-
-### Drone Storage
-Each drone has a table of beacon pings. Each row contains the IP address of the drone, beacon identifier, the coordinates of the drone and calculated distance about a ping result. Each time a drone successfully pings a beacon, a new row is added.
 
 
 ### Data Between Nodes
