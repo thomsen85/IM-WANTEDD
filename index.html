@@ -6,6 +6,14 @@
 </head>
 <body>
 
-<script type="module" src="project.js"></script>
+<script type="module">
+    import init from './project.js';
+
+    async function run() {
+        await init();
+        console.log("Initialized");
+    }
+    run();
+</script>
 </body>
 </html>
