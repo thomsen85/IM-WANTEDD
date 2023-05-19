@@ -27,7 +27,7 @@ pub fn ping_emergency_beacons(
                 continue;
             }
 
-            println!("Ping! {:#?} {:#?}", drone, emergency_beacon);
+            println!("Ping! Drone: {} -> {}", drone.id, emergency_beacon.id);
 
             commands.spawn((
                 PbrBundle {

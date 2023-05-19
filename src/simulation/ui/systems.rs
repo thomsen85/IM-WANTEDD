@@ -1,9 +1,10 @@
-use crate::simulation::camera::resources::CameraState;
 use crate::simulation::scenery::resources::GroundState;
 use crate::simulation::ui::drone_numbering::resources::DroneNumberingState;
 use crate::simulation::ui::fps_counter::resources::Fps;
+use crate::simulation::{camera::resources::CameraState, drones::components::Drone};
 use bevy::prelude::*;
 use bevy_egui::{egui, EguiContexts};
+use egui_extras::{Column, TableBuilder};
 
 pub fn controll_ui(
     mut contexts: EguiContexts,
@@ -37,8 +38,40 @@ pub fn controll_ui(
     });
 }
 
-pub fn console_ui(mut contexts: EguiContexts) {
-    egui::Window::new("Console").show(contexts.ctx_mut(), |ui| {
-        ui.label("Hello World!");
+pub fn console_ui(mut contexts: EguiContexts, drones: Query<&Drone>) {
+    egui::Window::new("Drones").show(contexts.ctx_mut(), |ui| {
+        TableBuilder::new(ui)
+            .striped(true)
+            .resizable(true)
+            .cell_layout(egui::Layout::left_to_right(egui::Align::Center))
+            .column(Column::auto())
+            .column(Column::auto())
+            .column(Column::remainder())
+            .header(20.0, |mut header| {
+                header.col(|ui| {
+                    ui.strong("ID");
+                });
+                header.col(|ui| {
+                    ui.strong("Position");
+                });
+                header.col(|ui| {
+                    ui.strong("Velocity");
+                });
+            })
+            .body(|mut body| {
+                for drone in drones.iter() {
+                    body.row(18.0, |mut row| {
+                        row.col(|ui| {
+                            ui.label(format!("{}", drone.id));
+                        });
+                        row.col(|ui| {
+                            ui.label("Hello");
+                        });
+                        row.col(|ui| {
+                            ui.button("Hello");
+                        });
+                    });
+                }
+            });
     });
 }
