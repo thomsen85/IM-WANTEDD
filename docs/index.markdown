@@ -75,3 +75,23 @@ IM-WANTEDD provides the simulation necessary to understand how these emergencies
 
 
 ## Bibliography
+Datatilsynet (2023). Om personopplysningsloven med forordning og n ̊ar den gjelder. url: https:
+//www.datatilsynet.no/regelverk-og-verktoy/lover-og-regler/om-personopplysningsloven-og-nar-
+den-gjelder/ (sjekket 11. mai 2023).
+
+
+Froehlich, Andrew (2023) Self-healing networks goals, benefits and how they work. url: https://www.techtarget.com/searchnetworking/tip/Self-healing-networks-goals-benefits-and-how-they-work (read 17.05.2023)
+
+
+Suescun, Catalina et. al. (2016) Unmanned Aerial Vehicle Networking Protocols. url: https://www.researchgate.net/publication/307090540_Unmanned_Aerial_Vehicle_Networking_Protocols (read 18.05.2023)
+
+Wanga, Yunpeng et.al (2013) Throughput and Delay Limits of 802.11p and Its Influence on
+Highway Capacity. url: https://core.ac.uk/download/pdf/82779145.pdf (read 19.05.2023)
+
+Lind, David (1994) Understanding the Avalanche Beacon for Best Performance. url:https://arc.lib.montana.edu/snow-science/objects/issw-1994-415-422.pdf (read 18.05.2023)
+
+Hadded, Mohamed (2015) TDMA-based MAC Protocols for Vehicular Ad Hoc
+Networks: A Survey, Qualitative Analysis and Open
+Research Issues. url: https://hal.science/hal-01211437v1/document (read 19.05.2023)
+
+Khare, Smith (2020) Fast-track message authentication protocol for DSRC using HMAC and group keys. url: https://www.sciencedirect.com/science/article/pii/S0003682X20302425 (read 20.05.2023)

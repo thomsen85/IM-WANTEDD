@@ -71,12 +71,6 @@ Drones always look for the central hub or other drones it can connect to. When a
 To make the list of ping results between drones synchronized, on of the drones in the connection sends the entire ping result table. This list of ping results are cross checked with its own list. Ping results that it already has are ignored, new rows are sent through the network except for the source drone and rows that it has which were not sent by the source drone are sent to the source. This ensures synchronization between the meshes that the drones were connected to.
 
 ### Self Healing
-All drones always try to connect to drones in the area if they are in range. Lost connections to drones that are lost are in that way always trynig to reconnect. The emergency situation that the drones are in, require them to handle lost connections and still be able to provide the best information to the central hub. Therefore keeping a mesh that is as connected as possible is important for synchronizing new ping results.
+All drones always try to connect to drones in the area if they are in range. Lost connections to drones that are lost are in that way always trying to reconnect. The emergency situation that the drones are in, require them to handle lost connections and still be able to provide the best information to the central hub. Keeping a mesh that is as fully connected as possible is important for synchronizing new ping results.
 
-Another improvement of 
-
-*Full mesh is a lot of overhead. So is the partial mesh that we have now*
-*Its important to keep the connections for as long as possible as sending the entire table is bloat*
-**
-
-
+Another improvement of that this provides is that packets sent between nodes only need to contain one single ping result and not the entire table which is sent on new connections. This reduces the overhead of sending packets between nodes. Keeping connections are therefore wanted.
