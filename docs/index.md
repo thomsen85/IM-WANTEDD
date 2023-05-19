@@ -35,15 +35,20 @@ IM-WANTEDD provides the simulation necessary to understand how these emergencies
 ## Definitions and Acronyms
 - DSRC: Dedicated Short Range Communication
 - FANET: Flying Ad-hoc Network
+- GPS: Global Positioning System
+- HMAC: Hash Message Authentication Code
 - IM-WANTEDD: Interoperable Mesh Wireless Ad-hoc Network for Triangulating Emergencies with Decentralized Drones
 - IP: Internet Protocol
 - MAC: Media Access control
 - MANET: Mobile Ad-hoc Network
 - RTS/CTS: Request to send / Clear to send
 - TDMA: Time Division Multiple Access
+- UAV: Unmanned Aerial Vehicle
 - VANET: Vehicular Ad-hoc Network
 
 ## Bibliography
+
+Burke, John (2019) What's the difference between half-duplex and full-duplex? url: [https://www.techtarget.com/searchnetworking/answer/The-difference-between-half-duplex-and-full-duplex](https://www.techtarget.com/searchnetworking/answer/The-difference-between-half-duplex-and-full-duplex) (read 20.05.2023)
 
 Froehlich, Andrew (2023) Self-healing networks goals, benefits and how they work. url: [https://www.techtarget.com/searchnetworking/tip/Self-healing-networks-goals-benefits-and-how-they-work](https://www.techtarget.com/searchnetworking/tip/Self-healing-networks-goals-benefits-and-how-they-work) (read 17.05.2023)
 
@@ -55,8 +60,10 @@ Khare, Smith (2020) Fast-track message authentication protocol for DSRC using HM
 
 Lind, David (1994) Understanding the Avalanche Beacon for Best Performance. url: [https://arc.lib.montana.edu/snow-science/objects/issw-1994-415-422.pdf](https://arc.lib.montana.edu/snow-science/objects/issw-1994-415-422.pdf) (read 18.05.2023)
 
+
+Olsø, Atle (2017) RTS/CTS url: [https://www.ntnu.no/wiki/pages/viewpage.action?pageId=98077171](https://www.ntnu.no/wiki/pages/viewpage.action?pageId=98077171)
+
 Suescun, Catalina et. al. (2016) Unmanned Aerial Vehicle Networking Protocols. url: [https://www.researchgate.net/publication/307090540_Unmanned_Aerial_Vehicle_Networking_Protocols](https://www.researchgate.net/publication/307090540_Unmanned_Aerial_Vehicle_Networking_Protocols) (read 18.05.2023)
 
-Wanga, Yunpeng et.al (2013) Throughput and Delay Limits of 802.11p and Its Influence on
-Highway Capacity. url: [https://core.ac.uk/download/pdf/82779145.pdf](https://core.ac.uk/download/pdf/82779145.pdf) (read 19.05.2023)
+Wanga, Yunpeng et.al (2013) Throughput and Delay Limits of 802.11p and Its Influence on Highway Capacity. url: [https://core.ac.uk/download/pdf/82779145.pdf](https://core.ac.uk/download/pdf/82779145.pdf) (read 19.05.2023)
 
