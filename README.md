@@ -22,12 +22,12 @@ IM-WANTEDD is a simulation program written in Rust with Bevy, designed to visual
 2. Clone the IM-WANTEDD repository:
 
 ```
-git clone git@github.com:thomsen85/wireless-mesh-network.git
+git clone git@github.com:thomsen85/IM-WANTEDD.git
 ```
 
 3. Navigate to the project directory:
 ```
-cd wireless-mesh-network
+cd IM-WANTEDD
 ```
 
 4. Build and run the simulation:
@@ -37,7 +37,7 @@ cargo run
 
 ## Documentation and report
 
-Visit the [repository report](https://thomsen85.github.io/wireless-mesh-network/) for a guide, documentation and an in depth look at the project.
+Visit the [repository report](https://thomsen85.github.io/IM-WANTEDD/) for a guide, documentation and an in depth look at the project.
 
 ## Usage
 
