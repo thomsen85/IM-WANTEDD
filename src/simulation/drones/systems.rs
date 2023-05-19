@@ -19,6 +19,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 Drone {
                     id: x * DRONE_ROWS + z,
                     connections: Vec::new(),
+                    ..default()
                 },
             ));
         }
@@ -28,5 +29,11 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
 pub fn update_drones(mut drones: Query<&mut Transform, With<Drone>>, time: Res<Time>) {
     for mut transform in drones.iter_mut() {
         transform.translation += Vec3::new(0.0, 0.0, DRONE_SPEED) * time.delta_seconds();
+    }
+}
+
+pub fn tick_ping_clock(mut drones: Query<&mut Drone>, time: Res<Time>) {
+    for mut drone in drones.iter_mut() {
+        drone.ping_timer.tick(time.delta());
     }
 }

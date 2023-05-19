@@ -5,3 +5,4 @@ pub const DRONE_SIZE_MUTIPLIER: f32 = 0.1;
 pub const DRONE_HEIGHT: f32 = 10.0;
 pub const DRONE_SPEED: f32 = 3.0;
 pub const DRONE_CONNECTION_DISTANCE: f32 = 45.0;
+pub const DRONE_PING_INTERVAL_MILLIS: u64 = 5000;

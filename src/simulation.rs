@@ -4,6 +4,7 @@ mod camera;
 mod drone_connections;
 mod drones;
 mod emergency_beacons;
+mod emergency_pings;
 mod scenery;
 mod ui;
 
@@ -16,5 +17,6 @@ pub fn main() {
         .add_plugin(drones::DronesPlugin)
         .add_plugin(drone_connections::DroneConnectionsPlugin)
         .add_plugin(emergency_beacons::EmergencyBeaconsPlugin)
+        .add_plugin(emergency_pings::EmergencyPingsPlugin)
         .run();
 }
