@@ -1,3 +1,4 @@
+use crate::simulation::emergency_pings::resources::EmergencyPingState;
 use crate::simulation::scenery::resources::GroundState;
 use crate::simulation::ui::drone_numbering::resources::DroneNumberingState;
 use crate::simulation::ui::fps_counter::resources::Fps;
@@ -12,6 +13,7 @@ pub fn controll_ui(
     mut camera_state: ResMut<CameraState>,
     mut ground_state: ResMut<GroundState>,
     mut drone_numbering_state: ResMut<DroneNumberingState>,
+    mut emergency_ping_state: ResMut<EmergencyPingState>,
 ) {
     egui::Window::new("Controlls").show(contexts.ctx_mut(), |ui| {
         egui::Grid::new("My_Grid").num_columns(2).show(ui, |ui| {
@@ -33,6 +35,11 @@ pub fn controll_ui(
             ui.add(egui::Checkbox::new(
                 &mut drone_numbering_state.show_drone_numbering,
                 "Show Drone Numbering",
+            ));
+            ui.end_row();
+            ui.add(egui::Checkbox::new(
+                &mut emergency_ping_state.visible,
+                "Show Emergency Pings",
             ));
         });
     });

@@ -2,7 +2,7 @@ use std::time::Instant;
 
 use bevy::prelude::*;
 
-#[derive(Component)]
+#[derive(Component, Debug, Clone, PartialEq)]
 pub struct EmergencyPing {
     pub drone_id: usize,
     pub emergency_beacon_id: usize,

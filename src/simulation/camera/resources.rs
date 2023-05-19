@@ -8,7 +8,7 @@ pub struct CameraState {
 impl Default for CameraState {
     fn default() -> Self {
         Self {
-            relative_pos: Vec3::new(30.0, 30.0, 30.0),
+            relative_pos: Vec3::new(50.0, 30.0, 40.0),
         }
     }
 }
