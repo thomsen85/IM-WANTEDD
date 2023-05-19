@@ -1,10 +1,10 @@
 ---
-title: Hardware
-permalink: /hardware/
+title: Simulation
+permalink: /simulation/
 nav_order: 3
 ---
 
-# Hardware
+# Simulation
 
 <details open markdown="block">
   <summary>
@@ -16,9 +16,9 @@ nav_order: 3
 </details>
 
 
-### Drone size
+### What the simulation shows
 
 
+### How it works
 
-### Frequence
 

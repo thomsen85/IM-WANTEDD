@@ -42,36 +42,6 @@ IM-WANTEDD provides the simulation necessary to understand how these emergencies
 - FANET
 - IM-WANTEDD
 - TDMA
-## Theory
-
-### Manet, Vanet and Fanet
-
-### RTS/CTS
-
-### Half Duplex
-
-### Mesh networks
-#### Flooding
-
-### DSRC
-
-### Ad-hoc networks
-
-### Triangulation
-
-### Decentralization
-
-
-### Avalanche Beacons
-
-
-## Method
-
-
-## Result
-
-
-## Conclusion and further work
 
 
 ## Bibliography
