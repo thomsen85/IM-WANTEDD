@@ -33,16 +33,15 @@ People are lost in avalanches and landslides every year. The areas that are left
 IM-WANTEDD provides the simulation necessary to understand how these emergencies can be solved in the best possible way; with no lives lost. It is created through the subject IDATT2104 - Network Programming at the Norwegian University of Science and Technology (NTNU). Drones are put over a landscape and communicate together in a mobile wireless mesh network.
 
 ## Definitions and Acronyms
-- MAC
-- IP
-- DSRC
-- RTS/CTS
-- MANET
-- VANET
-- FANET
-- IM-WANTEDD
-- TDMA
-
+- DSRC: Dedicated Short Range Communication
+- FANET: Flying Ad-hoc Network
+- IM-WANTEDD: Interoperable Mesh Wireless Ad-hoc Network for Triangulating Emergencies with Decentralized Drones
+- IP: Internet Protocol
+- MAC: Media Access control
+- MANET: Mobile Ad-hoc Network
+- RTS/CTS: Request to send / Clear to send
+- TDMA: Time Division Multiple Access
+- VANET: Vehicular Ad-hoc Network
 
 ## Bibliography
 
