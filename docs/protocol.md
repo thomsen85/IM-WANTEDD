@@ -74,3 +74,7 @@ To make the list of ping results between drones synchronized, on of the drones i
 All drones always try to connect to drones in the area if they are in range. Lost connections to drones that are lost are in that way always trying to reconnect. The emergency situation that the drones are in, require them to handle lost connections and still be able to provide the best information to the central hub. Keeping a mesh that is as fully connected as possible is important for synchronizing new ping results.
 
 Another improvement of that this provides is that packets sent between nodes only need to contain one single ping result and not the entire table which is sent on new connections. This reduces the overhead of sending packets between nodes. Keeping connections are therefore wanted.
+
+
+[Previous: Theory](/IM-WANTEDD/theory){: .btn .btn-blue }
+[Next: Hardware](/IM-WANTEDD/hardware){: .btn .btn-blue }

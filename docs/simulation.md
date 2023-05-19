@@ -1,7 +1,7 @@
 ---
 title: Simulation
 permalink: /simulation/
-nav_order: 3
+nav_order: 4
 ---
 
 # Simulation
@@ -22,3 +22,5 @@ nav_order: 3
 ### How it works
 
 
+[Previous: Hardware](/IM-WANTEDD/hardware){: .btn .btn-blue }
+[Next: Further work](/IM-WANTEDD/further-work){: .btn .btn-blue }

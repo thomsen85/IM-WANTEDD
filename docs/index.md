@@ -71,3 +71,5 @@ Subramanian, Jayashree (2001). Efficient Flooding for Wireless Mesh Networks. ur
 Wanga, Yunpeng et.al (2013) Throughput and Delay Limits of 802.11p and Its Influence on Highway Capacity. url: [https://core.ac.uk/download/pdf/82779145.pdf](https://core.ac.uk/download/pdf/82779145.pdf) (read 19.05.2023)
 
 Young, Joel K. (2008) What a Mesh! Part 1-The Ins and Outs Of Mesh Networking. url: [https://www.fierceelectronics.com/components/what-a-mesh-part-1-ins-and-outs-mesh-networking](https://www.fierceelectronics.com/components/what-a-mesh-part-1-ins-and-outs-mesh-networking) (read 20.05.2023)
+
+[Next: Theory](/IM-WANTEDD/theory){: .btn .btn-blue }

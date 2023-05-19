@@ -24,3 +24,4 @@ nav_order: 5
 
 ### Always sending the entire inbox to connected nodes
 
+[Previous: Simulation](/IM-WANTEDD/simulation){: .btn .btn-blue }

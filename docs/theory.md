@@ -6,6 +6,15 @@ nav_order: 1
 
 ## Theory
 
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+1. TOC
+{:toc}
+</details>
+
 ### Mesh networks
 
 Mesh networks describe a connection of nodes which can communicate with each other directly without relying on a central node. They can form different topologies and can be either partial or full. Full meshes forms a complete graph where all nodes are connected to each other. When using meshes in the open space, interference can cause unwanted errors in connectivity. More connections to secure packets are received might be beneficial (Young, 2008).
@@ -38,3 +47,7 @@ To avoid anyone intercept this network, HMAC can be used to authenticate message
 
 ### Avalanche Beacons
 Avalanche beacons are used to connect two beacons. On beacon is in search mode which searches for the beacon in receive mode. A frequency of 457 KHz is used for reasons like reliable and distant connections through any kind of material. This is neccessary when a beacon is buried deep under snow (Lind, 1994).
+
+
+[Previous: Intro](/IM-WANTEDD/){: .btn .btn-blue }
+[Next: Protocol](/IM-WANTEDD/protocol){: .btn .btn-blue }

@@ -1,7 +1,7 @@
 ---
 title: Hardware
 permalink: /hardware/
-nav_order: 4
+nav_order: 3
 ---
 
 # Hardware
@@ -22,3 +22,5 @@ nav_order: 4
 
 ### Frequence
 
+[Previous: Protocol](/IM-WANTEDD/protocol){: .btn .btn-blue }
+[Next: Simulation](/IM-WANTEDD/simulation){: .btn .btn-blue }
