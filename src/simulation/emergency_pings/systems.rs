@@ -31,7 +31,7 @@ pub fn ping_emergency_beacons(
             }
             drone.ping_timer.reset();
 
-            println!("Ping! Drone: {} -> {}", drone.id, emergency_beacon.id);
+            trace!("Ping! Drone: {} -> {}", drone.id, emergency_beacon.id);
             let emergency_ping = EmergencyPing {
                 drone_id: drone.id,
                 emergency_beacon_id: emergency_beacon.id,
@@ -43,9 +43,10 @@ pub fn ping_emergency_beacons(
             let drone_id = drone.id;
 
             drone.outbox.push_back(Message {
-                packet_data: emergency_ping.clone(),
+                packet_data: vec![emergency_ping.clone()],
                 progress: 0.0,
                 from: drone_id,
+                ..Default::default()
             });
 
             drone.data.push(emergency_ping.clone());

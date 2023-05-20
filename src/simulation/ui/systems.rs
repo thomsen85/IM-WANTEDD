@@ -1,3 +1,4 @@
+use crate::simulation::drones::resources::DroneState;
 use crate::simulation::emergency_pings::resources::EmergencyPingState;
 use crate::simulation::scenery::resources::GroundState;
 use crate::simulation::ui::drone_numbering::resources::DroneNumberingState;
@@ -7,6 +8,8 @@ use bevy::prelude::*;
 use bevy_egui::{egui, EguiContexts};
 use egui_extras::{Column, TableBuilder};
 
+use super::resources::UiState;
+
 pub fn controll_ui(
     mut contexts: EguiContexts,
     fps: Res<Fps>,
@@ -14,6 +17,7 @@ pub fn controll_ui(
     mut ground_state: ResMut<GroundState>,
     mut drone_numbering_state: ResMut<DroneNumberingState>,
     mut emergency_ping_state: ResMut<EmergencyPingState>,
+    mut drone_state: ResMut<DroneState>,
 ) {
     egui::Window::new("Controlls").show(contexts.ctx_mut(), |ui| {
         egui::Grid::new("My_Grid").num_columns(2).show(ui, |ui| {
@@ -41,11 +45,17 @@ pub fn controll_ui(
                 &mut emergency_ping_state.visible,
                 "Show Emergency Pings",
             ));
+            ui.end_row();
+            ui.add(egui::DragValue::new(&mut drone_state.drone_connection_range).speed(0.1));
         });
     });
 }
 
-pub fn console_ui(mut contexts: EguiContexts, drones: Query<&Drone>) {
+pub fn console_ui(
+    mut contexts: EguiContexts,
+    drones: Query<(Entity, &Drone)>,
+    mut ui_state: ResMut<UiState>,
+) {
     egui::Window::new("Drones").show(contexts.ctx_mut(), |ui| {
         TableBuilder::new(ui)
             .striped(true)
@@ -66,7 +76,7 @@ pub fn console_ui(mut contexts: EguiContexts, drones: Query<&Drone>) {
                 });
             })
             .body(|mut body| {
-                for drone in drones.iter() {
+                for (drone_entity_id, drone) in drones.iter() {
                     body.row(18.0, |mut row| {
                         row.col(|ui| {
                             ui.label(format!("{}", drone.id));
@@ -75,10 +85,33 @@ pub fn console_ui(mut contexts: EguiContexts, drones: Query<&Drone>) {
                             ui.label("Hello");
                         });
                         row.col(|ui| {
-                            ui.button("Hello");
+                            let button = ui.button("Show Details");
+                            if button.clicked() {
+                                ui_state.current_drone = Some(drone_entity_id);
+                            }
                         });
                     });
                 }
             });
     });
+}
+
+pub fn drone_detail_ui(
+    mut contexts: EguiContexts,
+    drones: Query<(Entity, &Drone)>,
+    ui_state: Res<UiState>,
+) {
+    if let Some(drone_entity_id) = ui_state.current_drone {
+        if let Ok((_drone_entity_id, drone)) = drones.get(drone_entity_id) {
+            egui::Window::new(format!("Drone {} Details", drone.id)).show(
+                contexts.ctx_mut(),
+                |ui| {
+                    ui.label(format!("ID: {}", drone.id));
+                    ui.label(format!("Inbox: {:?}", drone.inbox));
+                    ui.label(format!("Outbox: {:?}", drone.outbox));
+                    ui.label(format!("Data: {:?}", drone.data));
+                },
+            );
+        }
+    }
 }

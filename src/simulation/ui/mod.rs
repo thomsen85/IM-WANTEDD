@@ -11,10 +11,12 @@ mod systems;
 pub struct UIPlugin;
 impl Plugin for UIPlugin {
     fn build(&self, app: &mut App) {
-        app.add_plugin(EguiPlugin)
+        app.init_resource::<resources::UiState>()
+            .add_plugin(EguiPlugin)
             .add_plugin(FpsCounterPlugin)
             .add_plugin(DroneNumberingPlugin)
             .add_system(systems::controll_ui)
-            .add_system(systems::console_ui);
+            .add_system(systems::console_ui)
+            .add_system(systems::drone_detail_ui);
     }
 }

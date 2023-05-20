@@ -2,7 +2,7 @@ use crate::simulation::drone_connections::components::Connection;
 use crate::simulation::drone_connections::constants::CONNECTION_PIPE_LENGTH_PADDING;
 use crate::simulation::drone_connections::constants::CONNECTION_PIPE_RADIUS;
 use crate::simulation::drones::components::Drone;
-use crate::simulation::drones::constants::DRONE_CONNECTION_DISTANCE;
+use crate::simulation::drones::resources::DroneState;
 use bevy::prelude::*;
 
 use super::components::Message;
@@ -18,64 +18,98 @@ pub fn update_drone_connections(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
-    time: Res<Time>,
+    drone_state: Res<DroneState>,
 ) {
     // TODO: remove unused connections
-    // TODO: update length of connections
-    let query_list = drones.iter().collect::<Vec<_>>();
+    let drones_copy = drones.iter().collect::<Vec<_>>();
 
     for (drone, transform) in drones.iter() {
-        let nearby = get_nearby_drones((drone, transform), &query_list, DRONE_CONNECTION_DISTANCE);
+        let nearby = get_nearby_drones(
+            (drone, transform),
+            &drones_copy,
+            drone_state.drone_connection_range,
+        );
 
-        for (nearby_drone, nearby_transform) in nearby {
-            if nearby_drone.id == drone.id {
-                continue;
-            }
-            let connection = connections
-                .iter_mut()
-                .filter(|(connection, _, _, _)| {
-                    connection.from == drone.id && connection.to == nearby_drone.id
-                })
-                .next();
+        // Dangling connections
+        for dangling_connections in connections
+            .iter()
+            .filter(|(c, _, _, _)| c.from == drone.id && !nearby.iter().any(|(d, _)| c.to == d.id))
+        {
+            commands.entity(dangling_connections.2).despawn();
+            debug!(
+                "Dangling connection from {} to {} removed",
+                dangling_connections.0.from, dangling_connections.0.to
+            );
+        }
 
-            let diff_vec = nearby_transform.translation - transform.translation;
-            let mid_vec = nearby_transform
-                .translation
-                .lerp(transform.translation, 0.5);
-            let length = diff_vec.length();
-            let length = f32::min(length, length - CONNECTION_PIPE_LENGTH_PADDING);
+        // Connected Drones connections
+        for mut connection in connections
+            .iter_mut()
+            .filter(|(c, _, _, _)| c.from == drone.id && nearby.iter().any(|(d, _)| c.to == d.id))
+        {
+            let (_, connected_drone_transform) = drones_copy
+                .iter()
+                .find(|(d, _)| d.id == connection.0.to)
+                .expect("Connected drone not found");
 
-            if let Some(mut conn) = connection {
-                conn.1.translation = mid_vec;
-                conn.1.scale = Vec3::new(
-                    CONNECTION_PIPE_RADIUS * 2.0,
-                    length,
-                    CONNECTION_PIPE_RADIUS * 2.0,
-                );
-                conn.1.rotation = Quat::from_rotation_arc(Vec3::Y, diff_vec.normalize());
-            } else {
-                commands.spawn((
-                    PbrBundle {
-                        mesh: meshes.add(shape::Cylinder::default().into()),
-                        material: materials.add(Color::rgba(0.3, 0.5, 0.3, 0.2).into()),
-                        transform: Transform::from_translation(mid_vec)
-                            .with_scale(Vec3::new(
-                                CONNECTION_PIPE_RADIUS * 2.0,
-                                length,
-                                CONNECTION_PIPE_RADIUS * 2.0,
-                            ))
-                            .with_rotation(Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y)),
-                        ..default()
-                    },
-                    Connection {
-                        from: drone.id,
-                        to: nearby_drone.id,
-                        ..Default::default()
-                    },
-                ));
-            }
+            let (diff_vec, mid_vec, length) =
+                get_connection_information(connected_drone_transform, transform);
+            connection.1.translation = mid_vec;
+            connection.1.scale = Vec3::new(
+                CONNECTION_PIPE_RADIUS * 2.0,
+                length,
+                CONNECTION_PIPE_RADIUS * 2.0,
+            );
+            connection.1.rotation = Quat::from_rotation_arc(Vec3::Y, diff_vec.normalize());
+        }
+
+        // Unconnected_drones
+        for (unconnected_drone, unconnected_drone_transform) in nearby.iter().filter(|(d, _)| {
+            d.id != drone.id
+                && !connections
+                    .iter()
+                    .any(|(c, _, _, _)| c.from == drone.id && c.to == d.id)
+        }) {
+            let (diff_vec, mid_vec, length) =
+                get_connection_information(&unconnected_drone_transform, transform);
+            commands.spawn((
+                PbrBundle {
+                    mesh: meshes.add(shape::Cylinder::default().into()),
+                    material: materials.add(Color::rgba(0.3, 0.5, 0.3, 0.2).into()),
+                    transform: Transform::from_translation(mid_vec)
+                        .with_scale(Vec3::new(
+                            CONNECTION_PIPE_RADIUS * 2.0,
+                            length,
+                            CONNECTION_PIPE_RADIUS * 2.0,
+                        ))
+                        .with_rotation(Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y)),
+                    ..default()
+                },
+                Connection {
+                    from: drone.id,
+                    to: unconnected_drone.id,
+                    ..Default::default()
+                },
+            ));
+            debug!(
+                "Spawned connection between {} and {}",
+                drone.id, unconnected_drone.id
+            );
         }
     }
+}
+
+fn get_connection_information(
+    nearby_transform: &Transform,
+    transform: &Transform,
+) -> (Vec3, Vec3, f32) {
+    let diff_vec = nearby_transform.translation - transform.translation;
+    let mid_vec = nearby_transform
+        .translation
+        .lerp(transform.translation, 0.5);
+    let length = diff_vec.length();
+    let length = f32::min(length, length - CONNECTION_PIPE_LENGTH_PADDING);
+    (diff_vec, mid_vec, length)
 }
 
 pub fn tick_messages(mut messages: Query<&mut Message>, time: Res<Time>) {
@@ -104,7 +138,8 @@ pub fn move_message_spheres(
 
         debug_assert!(
             connection.is_some(),
-            "Connection not found: Msg. {:?}",
+            "Connection not found: Connections, {}, Msg. {:?}",
+            drone_connections.iter().count(),
             message
         );
 
@@ -122,7 +157,6 @@ pub fn move_message_spheres(
                     .lerp(connection_transform.translation, message.progress * 2.0);
 
                 transform.translation = position;
-                dbg!(position);
             }
         }
     }
@@ -136,20 +170,18 @@ pub fn add_messages_to_connection_queue(
         if drone.outbox.is_empty() {
             continue;
         }
-        let message = drone.outbox.pop_front().unwrap();
-
-        for mut connection in connections
-            .iter_mut()
-            .filter(|connection| connection.from == drone.id)
-        {
-            if message.from != connection.to {
-                connection.to_be_sendt.push_back(Message {
-                    packet_data: message.packet_data.clone(),
-                    progress: 0.0,
-                    from: drone.id,
-                });
+        let drone_id = drone.id;
+        for message in drone.outbox.iter_mut() {
+            for mut connection in connections
+                .iter_mut()
+                .filter(|connection| connection.from == drone_id)
+            {
+                if message.from != connection.to {
+                    connection.to_be_sendt.append(&mut message.packet_data);
+                }
             }
         }
+        drone.outbox.clear();
     }
 }
 
@@ -182,16 +214,21 @@ pub fn create_message_spheres(
             continue;
         }
 
-        let message = connection.to_be_sendt.pop_front().unwrap();
+        let message = Message {
+            from: connection.from,
+            packet_data: connection.to_be_sendt.clone(),
+            progress: 0.0,
+            ..Default::default()
+        };
+
+        connection.to_be_sendt.clear();
 
         let drone = drones
             .iter()
             .filter(|(drone, _)| drone.id == connection.from)
             .next();
 
-        println!("Creating message sphere");
-
-        if let Some((drone, drone_transform)) = drone {
+        if let Some((_, drone_transform)) = drone {
             let message = commands.spawn((
                 PbrBundle {
                     mesh: meshes.add(

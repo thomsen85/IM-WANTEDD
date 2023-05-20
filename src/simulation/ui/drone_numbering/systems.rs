@@ -85,7 +85,6 @@ pub fn update_drone_numbering(
                 },
                 DroneNumbering { drone: entity },
             ));
-            println!("Spawned at");
         }
     }
 }

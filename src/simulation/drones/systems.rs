@@ -1,6 +1,7 @@
+use crate::simulation::drone_connections::components::Message;
+
 use super::{components::Drone, constants::*};
 use bevy::prelude::*;
-use rand::prelude::*;
 
 pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     for x in 0..DRONE_COLUMNS {
@@ -50,10 +51,18 @@ pub fn handle_inbox(mut drones: Query<&mut Drone>) {
             continue;
         }
         let message = drone.inbox.pop_front().unwrap();
-        println!("Drone {} received message {:?}", drone.id, message);
-        if !drone.data.contains(&message.packet_data) {
-            drone.data.push(message.packet_data.clone());
-            drone.outbox.push_back(message);
+        trace!("Drone {} received message {:?}", drone.id, message);
+
+        let mut filtered_message = Message {
+            from: message.from,
+            ..Default::default()
+        };
+        for emergency_ping in message.packet_data {
+            if !drone.data.contains(&emergency_ping) {
+                drone.data.push(emergency_ping.clone());
+                filtered_message.packet_data.push(emergency_ping);
+            }
         }
+        drone.outbox.push_back(filtered_message);
     }
 }
