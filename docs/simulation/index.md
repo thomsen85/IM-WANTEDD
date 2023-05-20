@@ -1,7 +1,7 @@
 ---
 title: Simulation
 permalink: /simulation/
-nav_order: 4
+nav_order: 3
 has_children: true
 ---
 
@@ -23,5 +23,5 @@ has_children: true
 ### How it works
 
 
-[Previous: Hardware](/IM-WANTEDD/hardware){: .btn .btn-blue }
+[Previous: Protocol](/IM-WANTEDD/protocol){: .btn .btn-blue }
 [Next: Further work](/IM-WANTEDD/further-work){: .btn .btn-blue }
