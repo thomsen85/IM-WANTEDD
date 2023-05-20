@@ -171,13 +171,15 @@ pub fn add_messages_to_connection_queue(
             continue;
         }
         let drone_id = drone.id;
-        for message in drone.outbox.iter_mut() {
+        for message in drone.outbox.iter() {
             for mut connection in connections
                 .iter_mut()
                 .filter(|connection| connection.from == drone_id)
             {
                 if message.from != connection.to {
-                    connection.to_be_sendt.append(&mut message.packet_data);
+                    connection
+                        .to_be_sendt
+                        .append(&mut message.packet_data.clone());
                 }
             }
         }
