@@ -85,7 +85,7 @@ pub fn console_ui(
                             ui.label("Hello");
                         });
                         row.col(|ui| {
-                            let button = ui.button("Show Details");
+                            let button = ui.button("Show Data");
                             if button.clicked() {
                                 ui_state.current_drone = Some(drone_entity_id);
                             }
@@ -103,15 +103,56 @@ pub fn drone_detail_ui(
 ) {
     if let Some(drone_entity_id) = ui_state.current_drone {
         if let Ok((_drone_entity_id, drone)) = drones.get(drone_entity_id) {
-            egui::Window::new(format!("Drone {} Details", drone.id)).show(
-                contexts.ctx_mut(),
-                |ui| {
-                    ui.label(format!("ID: {}", drone.id));
-                    ui.label(format!("Inbox: {:?}", drone.inbox));
-                    ui.label(format!("Outbox: {:?}", drone.outbox));
-                    ui.label(format!("Data: {:?}", drone.data));
-                },
-            );
+            egui::Window::new(format!("Drone {} Details", drone.id))
+                .id(egui::Id::new("demo_window_options")) // required since we change the title
+                .show(contexts.ctx_mut(), |ui| {
+                    TableBuilder::new(ui)
+                        .striped(true)
+                        .resizable(true)
+                        .cell_layout(egui::Layout::left_to_right(egui::Align::Center))
+                        .column(Column::auto())
+                        .column(Column::auto())
+                        .column(Column::auto())
+                        .column(Column::auto())
+                        .header(18.0, |mut header| {
+                            header.col(|ui| {
+                                ui.strong("Timestamp");
+                            });
+                            header.col(|ui| {
+                                ui.strong("Drone ID");
+                            });
+                            header.col(|ui| {
+                                ui.strong("Emergency Beacon ID");
+                            });
+                            header.col(|ui| {
+                                ui.strong("Distance");
+                            });
+                        })
+                        .body(|mut body| {
+                            let mut emergency_pings = drone.data.clone();
+                            emergency_pings.sort_by_key(|ping| ping.timestamp);
+
+                            for emergency_ping in emergency_pings {
+                                body.row(18.0, |mut row| {
+                                    row.col(|ui| {
+                                        ui.label(format!(
+                                            "{}",
+                                            emergency_ping.timestamp.to_rfc2822()
+                                        ));
+                                    });
+                                    row.col(|ui| {
+                                        ui.label(format!("{}", emergency_ping.drone_id));
+                                    });
+                                    row.col(|ui| {
+                                        ui.label(format!("{}", emergency_ping.emergency_beacon_id));
+                                    });
+                                    row.col(|ui| {
+                                        ui.label(format!("{}", emergency_ping.distance));
+                                    });
+                                });
+                            }
+                        });
+                });
         }
     }
 }

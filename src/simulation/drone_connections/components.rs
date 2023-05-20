@@ -2,12 +2,13 @@ use bevy::prelude::*;
 
 use crate::simulation::emergency_pings::components::EmergencyPing;
 
-#[derive(Component)]
+#[derive(Component, Clone, Debug)]
 pub struct Connection {
     pub from: usize,
     pub to: usize,
     pub to_be_sendt: Vec<EmergencyPing>,
     pub message: Option<Entity>,
+    pub new_connection: bool,
 }
 
 impl Default for Connection {
@@ -17,6 +18,7 @@ impl Default for Connection {
             to: 0,
             to_be_sendt: Vec::new(),
             message: None,
+            new_connection: false,
         }
     }
 }

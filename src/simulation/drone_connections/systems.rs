@@ -22,6 +22,7 @@ pub fn update_drone_connections(
 ) {
     // TODO: remove unused connections
     let drones_copy = drones.iter().collect::<Vec<_>>();
+    let mut frame_connections: Vec<Connection> = Vec::new();
 
     for (drone, transform) in drones.iter() {
         let nearby = get_nearby_drones(
@@ -70,6 +71,30 @@ pub fn update_drone_connections(
                     .iter()
                     .any(|(c, _, _, _)| c.from == drone.id && c.to == d.id)
         }) {
+            let init_message = {
+                if connections
+                    .iter()
+                    .any(|(c, _, _, _)| c.from == unconnected_drone.id && c.to == drone.id)
+                    || frame_connections
+                        .iter()
+                        .any(|c| c.from == unconnected_drone.id && c.to == drone.id)
+                {
+                    vec![]
+                } else {
+                    drone.data.clone()
+                }
+            };
+
+            let connection = Connection {
+                from: drone.id,
+                to: unconnected_drone.id,
+                to_be_sendt: init_message.clone(),
+                new_connection: true,
+                ..Default::default()
+            };
+
+            frame_connections.push(connection.clone());
+
             let (diff_vec, mid_vec, length) =
                 get_connection_information(&unconnected_drone_transform, transform);
             commands.spawn((
@@ -85,11 +110,7 @@ pub fn update_drone_connections(
                         .with_rotation(Quat::from_rotation_arc(diff_vec.normalize(), Vec3::Y)),
                     ..default()
                 },
-                Connection {
-                    from: drone.id,
-                    to: unconnected_drone.id,
-                    ..Default::default()
-                },
+                connection,
             ));
             debug!(
                 "Spawned connection between {} and {}",
@@ -220,15 +241,19 @@ pub fn create_message_spheres(
             from: connection.from,
             packet_data: connection.to_be_sendt.clone(),
             progress: 0.0,
+            init_message: connection.new_connection,
             ..Default::default()
         };
 
+        connection.new_connection = false;
         connection.to_be_sendt.clear();
 
         let drone = drones
             .iter()
             .filter(|(drone, _)| drone.id == connection.from)
             .next();
+
+        debug_assert!(drone.is_some(), "Drone not found");
 
         if let Some((_, drone_transform)) = drone {
             let message = commands.spawn((

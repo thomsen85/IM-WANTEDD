@@ -1,5 +1,3 @@
-use std::time::Instant;
-
 use crate::simulation::{
     drone_connections::components::Message, drones::components::Drone,
     emergency_beacons::components::EmergencyBeacon,
@@ -35,7 +33,7 @@ pub fn ping_emergency_beacons(
             let emergency_ping = EmergencyPing {
                 drone_id: drone.id,
                 emergency_beacon_id: emergency_beacon.id,
-                timestamp: Instant::now(),
+                timestamp: chrono::Local::now(),
                 coordinates: drone_transform.translation,
                 distance,
             };
