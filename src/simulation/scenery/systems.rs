@@ -19,7 +19,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     ));
     commands.spawn(DirectionalLightBundle {
         directional_light: DirectionalLight {
-            shadows_enabled: true,
+            shadows_enabled: false,
             ..default()
         },
         transform: Transform {
