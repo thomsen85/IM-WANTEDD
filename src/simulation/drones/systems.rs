@@ -73,16 +73,24 @@ pub fn handle_inbox(mut drones: Query<&mut Drone>) {
         let message = drone.inbox.pop_front().unwrap();
         trace!("Drone {} received message {:?}", drone.id, message);
 
-        let mut filtered_message = Message {
-            from: {
-                if message.init_message {
-                    drone.id
-                } else {
-                    message.from
+        if message.init_message {
+            let mut response = Message {
+                from: drone.id,
+                ..Default::default()
+            };
+            for emergency_ping in &drone.data {
+                if !message.packet_data.contains(emergency_ping) {
+                    response.packet_data.push(emergency_ping.clone());
                 }
-            },
+            }
+            drone.outbox.push_back(response);
+        }
+
+        let mut filtered_message = Message {
+            from: message.from,
             ..Default::default()
         };
+
         for emergency_ping in message.packet_data {
             if !drone.data.contains(&emergency_ping) {
                 drone.data.push(emergency_ping.clone());

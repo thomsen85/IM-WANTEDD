@@ -307,6 +307,7 @@ pub fn remove_message_spheres_and_add_message(
 
             if let Some(mut drone) = drone {
                 drone.inbox.push_back(message.clone());
+                info!("{}, Message received: {:?}", drone.id, message);
             }
             connection.message = None;
         }
