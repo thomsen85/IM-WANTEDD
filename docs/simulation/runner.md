@@ -3,6 +3,7 @@ title: Simulation runnner
 permalink: /runner/
 parent: Simulation
 nav_order: 2
+layout: minimal
 ---
 
 # This is the simulation runner
