@@ -45,12 +45,12 @@ pub fn main() {
             ..Default::default()
         }))
         .add_plugin(main_menu::MainMenuPlugin)
-        .add_plugin(camera::CameraPlugin)
         .add_plugin(scenery::SceneryPlugin)
         .add_plugin(ui::UIPlugin)
         .add_plugin(drones::DronesPlugin)
         .add_plugin(drone_connections::DroneConnectionsPlugin)
         .add_plugin(emergency_beacons::EmergencyBeaconsPlugin)
         .add_plugin(emergency_pings::EmergencyPingsPlugin)
+        .add_plugin(camera::CameraPlugin)
         .run();
 }

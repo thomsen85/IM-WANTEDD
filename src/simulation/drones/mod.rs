@@ -19,6 +19,7 @@ impl Plugin for DronesPlugin {
                     systems::update_drones,
                     systems::tick_ping_clock,
                     systems::handle_inbox,
+                    systems::focus_a_drone,
                 )
                     .in_set(OnUpdate(InSimulation)),
             );

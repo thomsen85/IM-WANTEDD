@@ -1,6 +1,6 @@
 use crate::simulation::{
-    drone_connections::components::Message, main_menu::components::ScenarioChosen,
-    SimulationScenario,
+    camera::components::OrbitCamera, drone_connections::components::Message,
+    main_menu::components::ScenarioChosen, SimulationScenario,
 };
 
 use super::{components::Drone, constants::*, resources::DroneState};
@@ -79,6 +79,20 @@ fn spawn_drone(
             ..default()
         },
     ));
+}
+
+pub fn focus_a_drone(drones: Query<(Entity, &Drone)>, mut camera: Query<&mut OrbitCamera>) {
+    let mut camera_state = camera.single_mut();
+    if camera_state.target.is_none() {
+        let mid_drone = drones.iter().count() / 2;
+        let drone = drones
+            .iter()
+            .filter(|(_, drone)| drone.id == mid_drone)
+            .next();
+        if let Some((entity, _)) = drone {
+            camera_state.target = Some(entity);
+        }
+    }
 }
 
 pub fn update_drones(mut drones: Query<(&Drone, &mut Transform)>, time: Res<Time>) {
