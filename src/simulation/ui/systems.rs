@@ -46,6 +46,7 @@ pub fn controll_ui(
                 "Show Emergency Pings",
             ));
             ui.end_row();
+            ui.label("Drone Connection Range");
             ui.add(egui::DragValue::new(&mut drone_state.drone_connection_range).speed(0.1));
         });
     });
@@ -63,16 +64,12 @@ pub fn console_ui(
             .cell_layout(egui::Layout::left_to_right(egui::Align::Center))
             .column(Column::auto())
             .column(Column::auto())
-            .column(Column::remainder())
             .header(20.0, |mut header| {
                 header.col(|ui| {
                     ui.strong("ID");
                 });
                 header.col(|ui| {
-                    ui.strong("Position");
-                });
-                header.col(|ui| {
-                    ui.strong("Velocity");
+                    ui.strong("Data");
                 });
             })
             .body(|mut body| {
@@ -80,9 +77,6 @@ pub fn console_ui(
                     body.row(18.0, |mut row| {
                         row.col(|ui| {
                             ui.label(format!("{}", drone.id));
-                        });
-                        row.col(|ui| {
-                            ui.label("Hello");
                         });
                         row.col(|ui| {
                             let button = ui.button("Show Data");
