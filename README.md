@@ -64,7 +64,7 @@ The simulation starts by the user choosing a scenario. The scenario determines h
 - Displaying the drone's beacon ping radii
 - The height of the terrain to reveal or hide beacon
 
-It is possible to change the camera's angle and position
+It is possible to change the camera's angle and position by dragging the screen
 
 ## CI/CD
 There is one continous integration and one continous deployment script in the project.
