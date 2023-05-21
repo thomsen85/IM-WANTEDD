@@ -12,6 +12,7 @@ pub fn setup(
     scenario: Res<SimulationScenario>,
     mut drone_state: ResMut<DroneState>,
 ) {
+    let mut id = 1;
     for x in 0..DRONE_COLUMNS {
         for z in 0..DRONE_ROWS {
             let transform = Transform::from_xyz(
@@ -20,9 +21,9 @@ pub fn setup(
                 z as f32 * DRONE_SPACING,
             )
             .with_scale(Vec3::splat(DRONE_SIZE_MUTIPLIER));
-            let id = x * DRONE_ROWS + z;
 
-            spawn_drone(&mut commands, &asset_server, transform, id);
+            spawn_drone(&mut commands, &asset_server, transform, id, false);
+            id += 1;
         }
     }
 
@@ -31,12 +32,29 @@ pub fn setup(
         &asset_server,
         Transform::from_xyz(-DRONE_SPACING, 0.0, 3.0 * DRONE_SPACING)
             .with_scale(Vec3::splat(DRONE_SIZE_MUTIPLIER)),
-        DRONE_COLUMNS * DRONE_ROWS + 1,
+        id,
+        false,
     );
+    id += 1;
 
     dbg!(&scenario.scenario);
     match &scenario.scenario {
         ScenarioChosen::UnstableConnections => drone_state.drone_connection_range = 30.,
+        ScenarioChosen::MeetingDroneMeshes => {
+            for x in 0..DRONE_COLUMNS {
+                for z in 0..DRONE_ROWS {
+                    let transform = Transform::from_xyz(
+                        x as f32 * DRONE_SPACING + DRONE_COLUMNS as f32 * DRONE_SPACING,
+                        DRONE_HEIGHT,
+                        z as f32 * DRONE_SPACING + 400.,
+                    )
+                    .with_scale(Vec3::splat(DRONE_SIZE_MUTIPLIER));
+
+                    spawn_drone(&mut commands, &asset_server, transform, id, true);
+                    id += 1;
+                }
+            }
+        }
         _ => (),
     }
 }
@@ -46,6 +64,7 @@ fn spawn_drone(
     asset_server: &Res<AssetServer>,
     transform: Transform,
     id: usize,
+    reverse: bool,
 ) {
     commands.spawn((
         SceneBundle {
@@ -56,6 +75,7 @@ fn spawn_drone(
         Drone {
             id,
             connections: Vec::new(),
+            reverse,
             ..default()
         },
     ));
@@ -69,7 +89,13 @@ pub fn update_drones(mut drones: Query<(&Drone, &mut Transform)>, time: Res<Time
             1.0 * f32::sin(time.elapsed_seconds() * random_num) * time.delta_seconds(),
             (0.1 * f32::sin(time.elapsed_seconds() * random_num) + DRONE_SPEED)
                 * time.delta_seconds(),
-        )
+        ) * {
+            if drone.reverse {
+                -1.0
+            } else {
+                1.0
+            }
+        };
     }
 }
 
