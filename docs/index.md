@@ -13,7 +13,7 @@ nav_exclude: true
 - **Triangulating:** Finding the correct position from several nodes
 - **Emergencies with:** Helps in urgent situations with no room for failure
 - **Decentralized:** The network can communicate and store information without a central hub
-- **Drones:** Drones can access areas inacessible to people
+- **Drones:** Drones can access areas inaccessible to people
 
 
 <details open markdown="block">
