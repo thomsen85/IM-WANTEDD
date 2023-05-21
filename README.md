@@ -1,7 +1,7 @@
 # **IM-WANTEDD**
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![CI](https://github.com/cjgutz//actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
+[![CI](https://github.com/thomsen85/IM-WANTEDD/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
 [![CD](https://github.com/thomsen85/IM-WANTEDD/actions/workflows/pages/pages-build-deployment/badge.svg)](https://thomsen85.github.io/IM-WANTEDD)
 
 
