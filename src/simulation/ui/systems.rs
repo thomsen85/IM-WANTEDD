@@ -48,6 +48,7 @@ pub fn controll_ui(
             ui.end_row();
             ui.label("Drone Connection Range");
             ui.add(egui::DragValue::new(&mut drone_state.drone_connection_range).speed(0.1));
+            ui.end_row();
         });
     });
 }
