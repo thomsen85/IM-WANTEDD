@@ -1,9 +1,17 @@
-use crate::simulation::drone_connections::components::Message;
+use crate::simulation::{
+    drone_connections::components::Message, main_menu::components::ScenarioChosen,
+    SimulationScenario,
+};
 
-use super::{components::Drone, constants::*};
+use super::{components::Drone, constants::*, resources::DroneState};
 use bevy::prelude::*;
 
-pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn setup(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    scenario: Res<SimulationScenario>,
+    mut drone_state: ResMut<DroneState>,
+) {
     for x in 0..DRONE_COLUMNS {
         for z in 0..DRONE_ROWS {
             let transform = Transform::from_xyz(
@@ -25,6 +33,12 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
             .with_scale(Vec3::splat(DRONE_SIZE_MUTIPLIER)),
         DRONE_COLUMNS * DRONE_ROWS + 1,
     );
+
+    dbg!(&scenario.scenario);
+    match &scenario.scenario {
+        ScenarioChosen::UnstableConnections => drone_state.drone_connection_range = 30.,
+        _ => (),
+    }
 }
 
 fn spawn_drone(

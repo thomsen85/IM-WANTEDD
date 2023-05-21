@@ -3,6 +3,8 @@ use bevy_egui::EguiPlugin;
 
 use self::{drone_numbering::DroneNumberingPlugin, fps_counter::FpsCounterPlugin};
 
+use super::AppState;
+
 mod drone_numbering;
 mod fps_counter;
 pub mod resources;
@@ -15,8 +17,16 @@ impl Plugin for UIPlugin {
             .add_plugin(EguiPlugin)
             .add_plugin(FpsCounterPlugin)
             .add_plugin(DroneNumberingPlugin)
-            .add_system(systems::controll_ui)
-            .add_system(systems::console_ui)
-            .add_system(systems::drone_detail_ui);
+            // .add_system(systems::controll_ui)
+            // .add_system(systems::console_ui)
+            // .add_system(systems::drone_detail_ui);
+            .add_systems(
+                (
+                    systems::controll_ui,
+                    systems::console_ui,
+                    systems::drone_detail_ui,
+                )
+                    .in_set(OnUpdate(AppState::InSimulation)),
+            );
     }
 }
