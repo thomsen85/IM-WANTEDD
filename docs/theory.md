@@ -17,7 +17,7 @@ nav_order: 1
 
 ## Mesh networks
 
-Mesh networks describe a connection of nodes which can communicate with each other directly without relying on a central node. They can form different topologies and can be either partial or full. Full meshes forms a complete graph where all nodes are connected to each other. When using meshes in the open space, interference can cause unwanted errors in connectivity. More connections to secure packets are received might be beneficial (Young, 2008).
+Mesh networks describe a connection of nodes which can communicate with each other directly without relying on a central node. This network can then target specific nodes or leaf nodes. They can form different topologies and can be either partial or full. Full meshes forms a complete graph where all nodes are connected to each other. When using meshes in the open space, interference can cause unwanted errors in connectivity. More connections to secure packets are received might be beneficial (Young, 2008).
 
 ### Flooding
 A technique used in mesh network is flooding. By broadcasting a packet to all connected nodes which in turn also transmits to its node except for source. The message is thus transmitted. To avoid overhead while also only targeting a set of nodes, a hop count can be used to only send a packet a defined amount of layers from the initial source node (Subramanian, 2012).

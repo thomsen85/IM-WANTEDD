@@ -24,6 +24,10 @@ An implementation that we would want to see in the future, is a routing protocol
 As the simulation does not include the central hub, there is no need to show the calculation of the triangulation. The central hub could also be the point that executes the computation of the distance between the drones and beacons, but to better visualize, the distance is given in the simulation.
 
 
+## Considering inaccurate data
+
+In reality, drones might have software or hardware bugs that product data which is wrong. To partially solve this, comparing data amongst drones would help find what data is most likely correct and if there are any outliars. This could for example be done by looking at the data for one drone by seeing if the distance to the beacon corresponds with its other ping results relative to the timestamp. An extension of this would be to compare results accross drones and use the distance between them to calculate if the found distances to the beacons are within reasonable range.
+
 <br/>
 [Previous: Simulation](/IM-WANTEDD/simulation){: .btn .btn-blue }
 [Next: Bibliography](/IM-WANTEDD/bibliography){: .btn .btn-blue }
