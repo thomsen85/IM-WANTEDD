@@ -60,11 +60,12 @@ If you have any trouble running the simulation, please refer to the Bevy install
 ## Usage
 
 The simulation starts by the user choosing a scenario. The scenario determines how many drones are used, the connection between them and beacons in the world. When a scenario is selected, the drones load in and starts moving. During the simulation, you can interact with it using the user interface controls. Changes that can be made during the simulation includes:
-- Camera angle and position
 - Connection distance between drones
 - Displaying the drone's ID
 - Displaying the drone's beacon ping radii
 - The height of the terrain to reveal or hide beacon
+
+It is possible to change the camera's angle and position
 
 ## CI/CD
 There is one continous integration and one continous deployment script in the project.

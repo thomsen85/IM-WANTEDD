@@ -34,6 +34,8 @@ Figure 3: Arial photo of Gjerdrum
 
 The simulation starts by loading in the simulation canvas. This might take a few seconds depending on you internet connection. When it is loaded in, it offers the user to choose between different scenarios. They modify how many drones are present with their position, beacons to triangulate and the connection between drones. When a scenario is selected, the drones load in and starts moving. 
 
+By just using a mouse or a touchpad, it is possible to change the camera's angle and position.
+
 During the simulation, you can interact with it using the user interface controls. There are three UI components that the user can interact with. The first one is the controls which modifies the simulation. 
 
 Changes that can be made includes:
