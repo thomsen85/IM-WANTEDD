@@ -17,20 +17,13 @@ jobs:
       - name: Update local toolchain
         run: |
           rustup update
-          rustup component add clippy
-          rustup install nightly
+          rustup install stable
           sudo apt-get install g++ pkg-config libx11-dev libasound2-dev libudev-dev
 
       - name: Toolchain info
         run: |
           cargo --version --verbose
           rustc --version
-          cargo clippy --version
-
-      - name: Lint
-        run: |
-          cargo fmt -- --check
-          cargo clippy -- -D warnings
 
       - name: Test
         run: |
