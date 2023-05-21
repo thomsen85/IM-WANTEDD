@@ -12,7 +12,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn((
         SceneBundle {
             scene: asset_server.load("gjerdrum.gltf#Scene0"),
-            transform: Transform::from_xyz(0.0, GROUND_HEIGHT, 0.0),
+            transform: Transform::from_xyz(200.0, GROUND_HEIGHT, 0.0),
             ..default()
         },
         Ground {},
