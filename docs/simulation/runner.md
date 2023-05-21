@@ -1,13 +1,13 @@
 ---
 title: Simulation runnner
-permalink: /runner/
+permalink: /simulation-runner/
 parent: Simulation
 nav_order: 2
 layout: minimal
 ---
 
 # This is the simulation runner
-Loading in the simulation might take some time
+Loading in the simulation might take some time. If you want to reset the simulation, you can refresh the page.
 
 
 <script type="module">
