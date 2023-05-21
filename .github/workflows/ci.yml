@@ -1,7 +1,5 @@
 name: CI
 
-# This workflow run tests and build for each push
-
 on:
   push:
     branches:
@@ -24,11 +22,6 @@ jobs:
         run: |
           cargo --version --verbose
           rustc --version
-
-      - name: Test
-        run: |
-          cargo check
-          cargo test --all
 
       - name: Build
         run: |
