@@ -46,6 +46,7 @@ IM-WANTEDD provides the simulation necessary to understand how these emergencies
 - IP: Internet Protocol
 - MAC: Media Access control
 - MANET: Mobile Ad-hoc Network
+- OLSR: Optimized Link State Routing
 - QGIS: Quantum Geographic Information System, a free and open-source cross-platform desktop geographic information system application
 - RTS/CTS: Request to send / Clear to send
 - TDMA: Time Division Multiple Access
