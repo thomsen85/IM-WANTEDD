@@ -20,7 +20,6 @@ Visit the [repository report](https://thomsen85.github.io/IM-WANTEDD/) for a gui
 - Simulates a mobile wireless mesh network with drones for rescue missions.
 - Realistic visualization and simulation of drone movements and communication.
 - Dynamic network topology with decentralized communication.
-- Support for various routing and flooding techniques.
 - Easy-to-use interface for controlling and monitoring the simulation.
 
 ## External Dependencies (Crates)
