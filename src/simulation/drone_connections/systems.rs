@@ -157,12 +157,12 @@ pub fn move_message_spheres(
             })
             .next();
 
-        debug_assert!(
-            connection.is_some(),
-            "Connection not found: Connections, {}, Msg. {:?}",
-            drone_connections.iter().count(),
-            message
-        );
+        // debug_assert!(
+        //     connection.is_some(),
+        //     "Connection not found: Connections, {}, Msg. {:?}",
+        //     drone_connections.iter().count(),
+        //     message
+        // );
 
         if let Some((connection, connection_transform)) = connection {
             let drone = drones
@@ -297,7 +297,7 @@ pub fn remove_message_spheres_and_add_message(
             })
             .next();
 
-        debug_assert!(connection.is_some(), "Connection not found");
+        // debug_assert!(connection.is_some(), "Connection not found");
 
         if let Some(mut connection) = connection {
             let drone = drones

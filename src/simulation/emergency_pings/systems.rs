@@ -16,6 +16,7 @@ pub fn ping_emergency_beacons(
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
     for (mut drone, drone_transform) in drones.iter_mut() {
+        let mut has_pinged = false;
         for (emergency_beacon, emergency_beacon_transform) in emergency_beacons.iter() {
             let distance = drone_transform
                 .translation
@@ -27,7 +28,6 @@ pub fn ping_emergency_beacons(
             if !drone.ping_timer.finished() {
                 continue;
             }
-            drone.ping_timer.reset();
 
             trace!("Ping! Drone: {} -> {}", drone.id, emergency_beacon.id);
             let emergency_ping = EmergencyPing {
@@ -62,6 +62,10 @@ pub fn ping_emergency_beacons(
                 },
                 emergency_ping,
             ));
+            has_pinged = true;
+        }
+        if has_pinged {
+            drone.ping_timer.reset();
         }
     }
 }
