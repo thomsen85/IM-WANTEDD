@@ -53,7 +53,7 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                     // Display the game name
                     parent.spawn(
                         TextBundle::from_section(
-                            "Choose Senario",
+                            "Choose Scenario",
                             TextStyle {
                                 font: font.clone(),
                                 font_size: 80.0,

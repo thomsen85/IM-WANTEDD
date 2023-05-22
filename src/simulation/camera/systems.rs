@@ -101,11 +101,6 @@ pub fn orbit_camera(
 
             orbit.rotation_offset *= rotation;
             orbit.rotation_offset = orbit.rotation_offset.normalize();
-            println!("orbit_camera: {:?}", orbit.rotation_offset);
-            println!(
-                "orbit_camera: {:?}",
-                orbit.rotation_offset.to_euler(EulerRot::ZXY)
-            );
         } else if scroll.abs() > 0.0 {
             orbit.radius -= scroll * orbit.radius * 0.02;
             // dont allow zoom to reach zero or you get stuck
