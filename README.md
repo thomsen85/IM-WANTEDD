@@ -28,7 +28,6 @@ Visit the [repository report](https://thomsen85.github.io/IM-WANTEDD/) for a gui
 
 - **Bevy**: A game engine built in Rust. [Website](https://bevyengine.org/). Used for creating the simulation graphics.
 - **Bevy egui**: A user interface for user controls that works with bevy. [Website](https://github.com/mvlabat/bevy_egui). Used for adding simulation controls.
-- **Rand**: A tool for creating random numbers. [Website](https://docs.rs/rand/latest/rand/). Not currently used in this project, but a great tool to have for future development.
 - **Chrono**: A date and time library. [Website](https://github.com/chronotope/chrono). Used for timestamps for ping results in the simulation.
 
 ## Installation
