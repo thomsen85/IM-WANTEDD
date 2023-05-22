@@ -29,7 +29,13 @@ As the simulation does not include the central hub, there is no need to show the
 In reality, drones might have software or hardware bugs that product data which is wrong. To partially solve this, comparing data amongst drones would help find what data is most likely correct and if there are any outliars. This could for example be done by looking at the data for one drone by seeing if the distance to the beacon corresponds with its other ping results relative to the timestamp. An extension of this would be to compare results accross drones and use the distance between them to calculate if the found distances to the beacons are within reasonable range.
 
 ## Only sending table if connection is entirely new
+
 Sending the entire table to a drone on a new connection is not needed if they are already connected indirectly by another drone. Not sending the entire table would require less overhead, but the solution to know when a drone is new to the mesh or just to that drone, would not. Instead of the entire table would the mesh need to synchronize themselves with a routing table through OLSR or other routing protocols.
+
+
+## Camera Controls
+
+When interacting the UI controls, the camera might and rotate move at the same time. This is an unintended bug that we would like to fix, but did not prioritize as it did not disrupt using the application.
 
 
 

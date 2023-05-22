@@ -1,6 +1,6 @@
 # **IM-WANTEDD**
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENCE)
 [![CI](https://github.com/thomsen85/IM-WANTEDD/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
 [![CD](https://github.com/thomsen85/IM-WANTEDD/actions/workflows/pages/pages-build-deployment/badge.svg)](https://thomsen85.github.io/IM-WANTEDD)
 
@@ -70,10 +70,10 @@ It is possible to change the camera's angle and position by dragging the screen
 ## CI/CD
 There is one continous integration and one continous deployment script in the project.
 CI is used for building, checking linting and running tests in the project.
-You can find one of the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5049997173). The workflow file is found [here](.github/workflows/ci.yml).
+You can find one of the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5050137891). The workflow file is found [here](.github/workflows/ci.yml).
 CD is used for building the documentation and deploying it to github pages.
-You can find one of the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5049945395).
+You can find one of the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5050137773).
 
 ## License
 
-IM-WANTEDD is licensed under the [MIT License](LICENSE).
+IM-WANTEDD is licensed under the [MIT License](LICENCE).

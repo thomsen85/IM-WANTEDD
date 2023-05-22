@@ -7,7 +7,7 @@ layout: minimal
 ---
 
 # This is the simulation runner
-Loading in the simulation might take some time. If you want to reset the simulation, you can refresh the page.
+Loading in the simulation might take some time. If you want to reset the simulation, you can refresh the page. Be aware that switching tabs while the simulation is running might cause unexpected changes in the topology.
 
 
 <script type="module">
