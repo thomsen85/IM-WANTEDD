@@ -70,9 +70,9 @@ It is possible to change the camera's angle and position by dragging the screen
 ## CI/CD
 There is one continous integration and one continous deployment script in the project.
 CI is used for building, checking linting and running tests in the project.
-You can find the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5036642913). The workflow file is found [here](.github/workflows/ci.yml).
+You can find one of the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5049997173). The workflow file is found [here](.github/workflows/ci.yml).
 CD is used for building the documentation and deploying it to github pages.
-You can find the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5036642845).
+You can find one of the latest run [here](https://github.com/thomsen85/IM-WANTEDD/actions/runs/5049945395).
 
 ## License
 
