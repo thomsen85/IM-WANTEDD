@@ -12,6 +12,7 @@ use super::constants::DRONE_PING_INTERVAL_MILLIS;
 pub struct Drone {
     pub id: usize,
     pub connections: Vec<usize>,
+    pub reverse: bool,
     pub ping_timer: Timer,
     pub data: Vec<EmergencyPing>,
     pub inbox: VecDeque<Message>,
@@ -23,6 +24,7 @@ impl Default for Drone {
         Self {
             id: 0,
             connections: vec![],
+            reverse: false,
             ping_timer: Timer::new(
                 Duration::from_millis(DRONE_PING_INTERVAL_MILLIS),
                 TimerMode::Once,

@@ -1,9 +1,18 @@
-use crate::simulation::drone_connections::components::Message;
+use crate::simulation::{
+    camera::components::OrbitCamera, drone_connections::components::Message,
+    main_menu::components::ScenarioChosen, SimulationScenario,
+};
 
-use super::{components::Drone, constants::*};
+use super::{components::Drone, constants::*, resources::DroneState};
 use bevy::prelude::*;
 
-pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
+pub fn setup(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    scenario: Res<SimulationScenario>,
+    mut drone_state: ResMut<DroneState>,
+) {
+    let mut id = 1;
     for x in 0..DRONE_COLUMNS {
         for z in 0..DRONE_ROWS {
             let transform = Transform::from_xyz(
@@ -12,9 +21,9 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
                 z as f32 * DRONE_SPACING,
             )
             .with_scale(Vec3::splat(DRONE_SIZE_MUTIPLIER));
-            let id = x * DRONE_ROWS + z;
 
-            spawn_drone(&mut commands, &asset_server, transform, id);
+            spawn_drone(&mut commands, &asset_server, transform, id, false);
+            id += 1;
         }
     }
 
@@ -23,8 +32,31 @@ pub fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
         &asset_server,
         Transform::from_xyz(-DRONE_SPACING, 0.0, 3.0 * DRONE_SPACING)
             .with_scale(Vec3::splat(DRONE_SIZE_MUTIPLIER)),
-        DRONE_COLUMNS * DRONE_ROWS + 1,
+        id,
+        false,
     );
+    id += 1;
+
+    dbg!(&scenario.scenario);
+    match &scenario.scenario {
+        ScenarioChosen::UnstableConnections => drone_state.drone_connection_range = 30.,
+        ScenarioChosen::MeetingDroneMeshes => {
+            for x in 0..DRONE_COLUMNS {
+                for z in 0..DRONE_ROWS {
+                    let transform = Transform::from_xyz(
+                        x as f32 * DRONE_SPACING + DRONE_COLUMNS as f32 * DRONE_SPACING,
+                        DRONE_HEIGHT,
+                        z as f32 * DRONE_SPACING + 400.,
+                    )
+                    .with_scale(Vec3::splat(DRONE_SIZE_MUTIPLIER));
+
+                    spawn_drone(&mut commands, &asset_server, transform, id, true);
+                    id += 1;
+                }
+            }
+        }
+        _ => (),
+    }
 }
 
 fn spawn_drone(
@@ -32,6 +64,7 @@ fn spawn_drone(
     asset_server: &Res<AssetServer>,
     transform: Transform,
     id: usize,
+    reverse: bool,
 ) {
     commands.spawn((
         SceneBundle {
@@ -42,9 +75,24 @@ fn spawn_drone(
         Drone {
             id,
             connections: Vec::new(),
+            reverse,
             ..default()
         },
     ));
+}
+
+pub fn focus_a_drone(drones: Query<(Entity, &Drone)>, mut camera: Query<&mut OrbitCamera>) {
+    let mut camera_state = camera.single_mut();
+    if camera_state.target.is_none() {
+        let mid_drone = drones.iter().count() / 2;
+        let drone = drones
+            .iter()
+            .filter(|(_, drone)| drone.id == mid_drone)
+            .next();
+        if let Some((entity, _)) = drone {
+            camera_state.target = Some(entity);
+        }
+    }
 }
 
 pub fn update_drones(mut drones: Query<(&Drone, &mut Transform)>, time: Res<Time>) {
@@ -55,7 +103,13 @@ pub fn update_drones(mut drones: Query<(&Drone, &mut Transform)>, time: Res<Time
             1.0 * f32::sin(time.elapsed_seconds() * random_num) * time.delta_seconds(),
             (0.1 * f32::sin(time.elapsed_seconds() * random_num) + DRONE_SPEED)
                 * time.delta_seconds(),
-        )
+        ) * {
+            if drone.reverse {
+                -1.0
+            } else {
+                1.0
+            }
+        };
     }
 }
 

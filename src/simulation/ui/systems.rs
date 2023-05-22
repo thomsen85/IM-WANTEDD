@@ -3,7 +3,7 @@ use crate::simulation::emergency_pings::resources::EmergencyPingState;
 use crate::simulation::scenery::resources::GroundState;
 use crate::simulation::ui::drone_numbering::resources::DroneNumberingState;
 use crate::simulation::ui::fps_counter::resources::Fps;
-use crate::simulation::{camera::resources::CameraState, drones::components::Drone};
+use crate::simulation::{camera::components::OrbitCamera, drones::components::Drone};
 use bevy::prelude::*;
 use bevy_egui::{egui, EguiContexts};
 use egui_extras::{Column, TableBuilder};
@@ -13,25 +13,15 @@ use super::resources::UiState;
 pub fn controll_ui(
     mut contexts: EguiContexts,
     fps: Res<Fps>,
-    mut camera_state: ResMut<CameraState>,
     mut ground_state: ResMut<GroundState>,
     mut drone_numbering_state: ResMut<DroneNumberingState>,
     mut emergency_ping_state: ResMut<EmergencyPingState>,
     mut drone_state: ResMut<DroneState>,
 ) {
-    egui::Window::new("Controlls").show(contexts.ctx_mut(), |ui| {
+    egui::Window::new("Controls").show(contexts.ctx_mut(), |ui| {
         egui::Grid::new("My_Grid").num_columns(2).show(ui, |ui| {
             ui.label("FPS:");
             ui.label(format!("{:.2}", fps.amount));
-            ui.end_row();
-            ui.label("Camera pos x:");
-            ui.add(egui::DragValue::new(&mut camera_state.relative_pos.x).speed(0.1));
-            ui.end_row();
-            ui.label("Camera pos y:");
-            ui.add(egui::DragValue::new(&mut camera_state.relative_pos.y).speed(0.1));
-            ui.end_row();
-            ui.label("Camera pos z:");
-            ui.add(egui::DragValue::new(&mut camera_state.relative_pos.z).speed(0.1));
             ui.end_row();
             ui.label("Ground pos:");
             ui.add(egui::DragValue::new(&mut ground_state.ground_height).speed(0.1));
@@ -48,6 +38,7 @@ pub fn controll_ui(
             ui.end_row();
             ui.label("Drone Connection Range");
             ui.add(egui::DragValue::new(&mut drone_state.drone_connection_range).speed(0.1));
+            ui.end_row();
         });
     });
 }
@@ -56,12 +47,15 @@ pub fn console_ui(
     mut contexts: EguiContexts,
     drones: Query<(Entity, &Drone)>,
     mut ui_state: ResMut<UiState>,
+    mut camera: Query<&mut OrbitCamera>,
 ) {
+    let mut camera_state = camera.single_mut();
     egui::Window::new("Drones").show(contexts.ctx_mut(), |ui| {
         TableBuilder::new(ui)
             .striped(true)
             .resizable(true)
             .cell_layout(egui::Layout::left_to_right(egui::Align::Center))
+            .column(Column::auto())
             .column(Column::auto())
             .column(Column::auto())
             .header(20.0, |mut header| {
@@ -70,6 +64,9 @@ pub fn console_ui(
                 });
                 header.col(|ui| {
                     ui.strong("Data");
+                });
+                header.col(|ui| {
+                    ui.strong("Camera");
                 });
             })
             .body(|mut body| {
@@ -82,6 +79,12 @@ pub fn console_ui(
                             let button = ui.button("Show Data");
                             if button.clicked() {
                                 ui_state.current_drone = Some(drone_entity_id);
+                            }
+                        });
+                        row.col(|ui| {
+                            let button = ui.button("Focus");
+                            if button.clicked() {
+                                camera_state.target = Some(drone_entity_id);
                             }
                         });
                     });
@@ -108,6 +111,7 @@ pub fn drone_detail_ui(
                         .column(Column::auto())
                         .column(Column::auto())
                         .column(Column::auto())
+                        .column(Column::auto())
                         .header(18.0, |mut header| {
                             header.col(|ui| {
                                 ui.strong("Timestamp");
@@ -120,6 +124,9 @@ pub fn drone_detail_ui(
                             });
                             header.col(|ui| {
                                 ui.strong("Distance");
+                            });
+                            header.col(|ui| {
+                                ui.strong("Coordinates");
                             });
                         })
                         .body(|mut body| {
@@ -142,6 +149,14 @@ pub fn drone_detail_ui(
                                     });
                                     row.col(|ui| {
                                         ui.label(format!("{}", emergency_ping.distance));
+                                    });
+                                    row.col(|ui| {
+                                        ui.label(format!(
+                                            "({:.1}, {:.1}, {:.1})",
+                                            emergency_ping.coordinates.x,
+                                            emergency_ping.coordinates.y,
+                                            emergency_ping.coordinates.z
+                                        ));
                                     });
                                 });
                             }
