@@ -9,6 +9,8 @@
 
 Created by [Thomas Svendal](https://github.com/thomsen85) and [Carl Gützkow](https://github.com/cjgutz)
 
+<u>**[Run the simulation here](https://thomsen85.github.io/IM-WANTEDD/simulation-runner/)**</u>
+
 IM-WANTEDD is a simulation program written in Rust with Bevy, designed to visualize and simulate a mobile wireless mesh network for rescue missions. The simulation includes a network of drones that communicate with each other to triangulate the position of nearby beacons. The program aims to provide an interactive and realistic environment to study and analyze the behavior of the network in realistic scenarios.
 
 ## Documentation and report
